@@ -1,0 +1,37 @@
+{
+  "title": "Song",
+  "properties": {
+    "name": {
+      "format": "single-line",
+      "title": "Name",
+      "type": "string",
+      "displayPriority": 1
+    },
+    "artist": {
+      "format": "single-line",
+      "title": "Artist",
+      "type": "string",
+      "displayPriority": 2
+    },
+    "album": {
+      "format": "single-line",
+      "title": "Album",
+      "type": "string",
+      "displayPriority": 3
+    },
+    "albumImage": {
+      "format": "single-line",
+      "title": "Album Image",
+      "type": "string",
+      "displayPriority": 4
+    },
+    "url": {
+      "format": "single-line",
+      "title": "Song Url",
+      "type": "string",
+      "displayPriority":5
+    }
+  },
+  "titleProperty": "name",
+  "type": "object"
+}

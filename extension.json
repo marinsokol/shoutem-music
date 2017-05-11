@@ -1,0 +1,37 @@
+{
+  "name": "music",
+  "title": "Music",
+  "version": "0.0.1",
+  "description": "",
+  "platform": "1.0.*",
+  "screens": [
+    {
+      "name": "MusicList"
+    },
+    {
+      "name": "MusicDetails"
+    }
+  ],
+  "shortcuts": [
+    {
+      "title": "Music",
+      "name": "Music",
+      "screen": "@.MusicList",
+      "adminPages": [
+        {
+          "page": "shoutem.cms.CmsPage",
+          "title": "Content",
+          "parameters": {
+            "schema": "@.Song"
+          }
+        }
+      ]
+    }
+  ],
+  "dataSchemas": [
+    {
+      "name": "Song",
+      "path": "server/data-schemas/Song.json"
+    }
+  ]
+}
