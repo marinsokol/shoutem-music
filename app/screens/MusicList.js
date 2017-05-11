@@ -1,5 +1,6 @@
 import React, {
-  Component
+  Component,
+  PropTypes,
 } from 'react';
 
 import {
@@ -7,6 +8,13 @@ import {
   NavigationBar,
   ListView,
 } from '@shoutem/ui';
+
+import {
+  find,
+  isBusy,
+  shouldRefresh,
+  getCollection
+} from '@shoutem/redux-io';
 
 import { navigateTo } from '@shoutem/core/navigation';
 import { connect } from 'react-redux';
@@ -20,18 +28,26 @@ import { songs } from '../mockData';
 
 class MusicList extends Component {
   static propTypes = {
-    navigateTo: React.PropTypes.func,
+    navigateTo: PropTypes.func,
+    find: PropTypes.func,
+    songs: PropTypes.array,
   };
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      songs: songs,
-    };
-
     this.openDetailsScreen = this.openDetailsScreen.bind(this);
     this.renderRow = this.renderRow.bind(this);
+  }
+
+  componentDidMount() {
+    const { find, songs } = this.props;
+
+    if (shouldRefresh(songs)) {
+      find(ext('Song'), 'all', {
+        include: 'image',
+      })
+    }
   }
 
   openDetailsScreen(song) {
@@ -53,7 +69,7 @@ class MusicList extends Component {
   }
 
   render() {
-    const { songs } = this.state;
+    const { songs } = this.props;
     if (songs.length === 1) {
       return <MusicDetails
         song={songs[0]}
@@ -61,9 +77,11 @@ class MusicList extends Component {
     }
 
     return (
-      <Screen styleName="full-screen paper" >
+      <Screen styleName="paper">
+        <NavigationBar title="Music" />
         <ListView
           data={songs}
+          loading={isBusy(songs)}
           renderRow={this.renderRow}
         />
       </Screen>
@@ -72,6 +90,8 @@ class MusicList extends Component {
 };
 
 export default connect(
-  undefined,
-  { navigateTo }
+  (state) => ({
+    songs: getCollection(state[ext()].allSongs, state)
+  }),
+  { navigateTo, find }
 )(MusicList);

@@ -1,5 +1,6 @@
 import React, {
-  Component
+  Component,
+  PropTypes,
 } from 'react';
 
 import {
@@ -17,8 +18,8 @@ import {
 
 export default class MusicListView extends Component {
   static propTypes = {
-    onPress: React.PropTypes.func,
-    song: React.PropTypes.object,
+    onPress: PropTypes.func,
+    song: PropTypes.object,
   };
 
   constructor() {
@@ -39,14 +40,14 @@ export default class MusicListView extends Component {
       <TouchableOpacity onPress={this.handlePress}>
         <Row>
           <Image
-            styleName="medium rounded-corners placeholder"
+            styleName="medium-square rounded-corners placeholder"
             source={{ uri: song.albumImage }}
           >
-            <Overlay styleName="rounded-small">
-              <Icon name="play" />
+            <Overlay styleName="rounded-small solid-bright">
+              <Icon name="play" style={{ color: 'white' }} />
             </Overlay>
           </Image>
-          <View styleName="vertical stretch space-between">
+          <View styleName="vertical">
             <Title styleName="md-gutter-bottom">{song.name}</Title>
             <Subtitle styleName="sm-gutter-horizontal">{song.artist}</Subtitle>
           </View>

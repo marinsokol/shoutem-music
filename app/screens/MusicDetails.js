@@ -1,5 +1,6 @@
 import React, {
-  Component
+  Component,
+  PropTypes,
 } from 'react';
 
 import {
@@ -15,7 +16,7 @@ import {
 
 export default class MusicDetails extends Component {
   static propTypes = {
-    song: React.PropTypes.object,
+    song: PropTypes.object,
   };
 
   render() {
@@ -23,12 +24,14 @@ export default class MusicDetails extends Component {
 
     return (
       <Screen>
-        <Image
-          styleName="featured"
-          source={{
-            uri: song.albumImage
-          }}
-        />
+        <View styleName="vertical h-center">
+          <Image
+            styleName="featured"
+            source={{
+              uri: song.albumImage
+            }}
+          />
+        </View>
         <View styleName="vertical h-center" style={{ marginTop: 20 }} >
           <Title>{song.name}</Title>
           <Subtitle>{song.artist}</Subtitle>
