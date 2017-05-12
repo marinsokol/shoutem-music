@@ -20,11 +20,11 @@ import { navigateTo } from '@shoutem/core/navigation';
 import { connect } from 'react-redux';
 import { ext } from '../extension';
 
-
 import MusicListView from '../components/MusicListView';
 import MusicDetails from './MusicDetails';
 
 import { songs } from '../mockData';
+import { SONG_SHEMA } from '../reducer';
 
 class MusicList extends Component {
   static propTypes = {
@@ -44,7 +44,7 @@ class MusicList extends Component {
     const { find, songs } = this.props;
 
     if (shouldRefresh(songs)) {
-      find(ext('Song'), 'all', {
+      find(SONG_SHEMA, 'all', {
         include: 'image',
       })
     }

@@ -1,5 +1,8 @@
 {
   "name": "marin-sokol.music",
   "version": "0.0.1",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "react-native-video": "^1.0.0"
+  }
 }
