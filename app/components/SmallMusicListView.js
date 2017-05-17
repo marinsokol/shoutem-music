@@ -4,14 +4,16 @@ import React, {
 } from 'react';
 
 import {
+  Row,
+  View,
   Image,
   Title,
   Subtitle,
-  Tile,
+  Divider,
   TouchableOpacity,
 } from '@shoutem/ui';
 
-export default class MusicListView extends Component {
+export default class SmallMusicListView extends Component {
   static propTypes = {
     onPress: PropTypes.func,
     song: PropTypes.object,
@@ -33,17 +35,17 @@ export default class MusicListView extends Component {
 
     return (
       <TouchableOpacity onPress={this.handlePress}>
-        <Image
-          styleName="large-banner"
-          source={{
-            uri: song.albumImage
-          }}
-        >
-          <Tile>
-            <Title>{song.name}</Title>
-            <Subtitle>{song.artist}</Subtitle>
-          </Tile>
-        </Image>
+        <Row>
+          <Image
+            styleName="medium rounded-corners"
+            source={{ uri: song.albumImage }}
+          />
+          <View styleName="vertical">
+            <Title styleName="md-gutter-bottom">{song.name}</Title>
+            <Subtitle styleName="sm-gutter-horizontal">{song.artist}</Subtitle>
+          </View>
+        </Row>
+        <Divider styleName="line" />
       </TouchableOpacity>
     );
   }

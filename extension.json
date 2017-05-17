@@ -6,10 +6,24 @@
   "platform": "1.0.*",
   "screens": [
     {
-      "name": "MusicList"
+      "name": "MusicList",
+      "title": "Big list",
+      "image": "server/assets/screens/big-list.png"
     },
     {
       "name": "MusicDetails"
+    },
+    {
+      "name": "SmallMusicList",
+      "title": "Small list",
+      "image": "server/assets/screens/small-list.png",
+      "extends": "@.MusicList"
+    },
+    {
+      "name": "FeaturedMusicList",
+      "title": "List with featured list item",
+      "image": "server/assets/screens/featuredlist.png",
+      "extends": "@.MusicList"
     }
   ],
   "shortcuts": [
@@ -24,6 +38,10 @@
           "parameters": {
             "schema": "@.Song"
           }
+        },
+        {
+          "page": "shoutem.layouts.LayoutPage",
+          "title": "Layout"
         }
       ]
     }

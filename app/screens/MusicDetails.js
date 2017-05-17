@@ -26,21 +26,9 @@ export default class MusicDetails extends Component {
 
     this.state = {
       playing: false,
-      currentTime: 0,
-      songDuration: 0,
     }
 
-    this.handleProgress = this.handleProgress.bind(this);
-    this.handleLoad = this.handleLoad.bind(this);
     this.playSong = this.playSong.bind(this);
-  }
-
-  handleProgress(params) {
-    this.setState({ currentTime: params.currentTime });
-  }
-
-  handleLoad(params) {
-    this.setState({ songDuration: params.duration });
   }
 
   playSong() {
@@ -50,7 +38,7 @@ export default class MusicDetails extends Component {
 
   render() {
     const { song } = this.props;
-    const { currentTime, songDuration, playing } = this.state;
+    const { playing } = this.state;
     let playButton = null;
     if (!playing) {
       playButton = (<Icon name="play" style={{ fontSize: 100 }} />);
@@ -74,8 +62,7 @@ export default class MusicDetails extends Component {
             muted={false}
             paused={!playing}
             playInBackground={true}
-            onLoad={this.handleLoad}
-            onProgress={this.handleProgress}
+            playWhenInactive={true}
             repeat={false}
           />
         </View>
@@ -83,14 +70,11 @@ export default class MusicDetails extends Component {
           <Title>{song.name}</Title>
           <Subtitle>{song.artist}</Subtitle>
           <Text>{song.album}</Text>
-          <Text>{currentTime} / {songDuration}</Text>
         </View>
         <View styleName="horizontal v-center h-center">
-          <Icon name="left-arrow" style={{ fontSize: 100 }} />
           <TouchableOpacity onPress={this.playSong}>
             {playButton}
           </TouchableOpacity>
-          <Icon name="right-arrow" style={{ fontSize: 100 }} />
         </View>
       </Screen>
     );

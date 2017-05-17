@@ -23,10 +23,9 @@ import { ext } from '../extension';
 import MusicListView from '../components/MusicListView';
 import MusicDetails from './MusicDetails';
 
-import { songs } from '../mockData';
 import { SONG_SHEMA } from '../reducer';
 
-class MusicList extends Component {
+export class MusicList extends Component {
   static propTypes = {
     navigateTo: PropTypes.func,
     find: PropTypes.func,

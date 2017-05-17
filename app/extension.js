@@ -5,13 +5,17 @@ import pack from './package.json';
 // screens imports
 import MusicList from './screens/MusicList';
 import MusicDetails from './screens/MusicDetails';
+import SmallMusicList from './screens/SmallMusicList';
+import FeaturedMusicList from './screens/FeaturedMusicList';
 
 // themes imports
 
 
 export const screens = {
   MusicList,
-  MusicDetails
+  MusicDetails,
+  SmallMusicList,
+  FeaturedMusicList
 };
 
 export const themes = {
