@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Text,
   Icon,
+  Tile,
 } from '@shoutem/ui';
 
 import Video from 'react-native-video';
@@ -41,9 +42,9 @@ export default class MusicDetails extends Component {
     const { playing } = this.state;
     let playButton = null;
     if (!playing) {
-      playButton = (<Icon name="play" style={{ fontSize: 100 }} />);
+      playButton = (<Icon name="play" style={{ fontSize: 100, color: 'white' }} />);
     } else {
-      playButton = (<Icon name="pause" style={{ fontSize: 100 }} />);
+      playButton = (<Icon name="pause" style={{ fontSize: 100, color: 'white' }} />);
     }
 
     return (
@@ -54,7 +55,13 @@ export default class MusicDetails extends Component {
             source={{
               uri: song.albumImage
             }}
-          />
+          >
+            <Tile styleName="clear">
+              <TouchableOpacity onPress={this.playSong}>
+                {playButton}
+              </TouchableOpacity>
+            </Tile>
+          </Image>
           <Video
             source={{ uri: song.url }}
             ref="audio"
@@ -70,11 +77,6 @@ export default class MusicDetails extends Component {
           <Title>{song.name}</Title>
           <Subtitle>{song.artist}</Subtitle>
           <Text>{song.album}</Text>
-        </View>
-        <View styleName="horizontal v-center h-center">
-          <TouchableOpacity onPress={this.playSong}>
-            {playButton}
-          </TouchableOpacity>
         </View>
       </Screen>
     );

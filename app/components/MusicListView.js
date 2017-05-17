@@ -40,7 +40,7 @@ export default class MusicListView extends Component {
           }}
         >
           <Tile>
-            <Title>{song.name}</Title>
+            <Title styleName="md-gutter-bottom">{song.name}</Title>
             <Subtitle>{song.artist}</Subtitle>
           </Tile>
         </Image>

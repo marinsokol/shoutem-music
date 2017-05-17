@@ -10,6 +10,10 @@ import {
 } from '@shoutem/ui';
 
 import {
+  EmptyStateView,
+} from '@shoutem/ui-addons';
+
+import {
   find,
   isBusy,
   shouldRefresh,
@@ -69,10 +73,20 @@ export class MusicList extends Component {
 
   render() {
     const { songs } = this.props;
+    if (songs.length === 0) {
+      return (
+        <EmptyStateView
+          icon="error"
+          message="Please create content and reload your app."
+        />
+      )
+    }
     if (songs.length === 1) {
-      return <MusicDetails
-        song={songs[0]}
-      />
+      return (
+        <MusicDetails
+          song={songs[0]}
+        />
+      )
     }
 
     return (

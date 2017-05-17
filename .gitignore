@@ -1,2 +1,5 @@
+.DS_Store
+server/.DS_Store
+
 app/node_modules/
 server/node_modules/
