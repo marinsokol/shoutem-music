@@ -13,6 +13,7 @@ import {
   Text,
   Icon,
   Tile,
+  NavigationBar,
 } from '@shoutem/ui';
 
 import Video from 'react-native-video';
@@ -49,6 +50,9 @@ export default class MusicDetails extends Component {
 
     return (
       <Screen>
+        <NavigationBar
+          title={song.name}
+        />
         <View styleName="vertical h-center">
           <Image
             styleName="featured"
