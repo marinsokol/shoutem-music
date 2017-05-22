@@ -1,5 +1,5 @@
 import React, {
-  Component,
+  PureComponent,
   PropTypes,
 } from 'react';
 
@@ -11,19 +11,13 @@ import {
   TouchableOpacity,
 } from '@shoutem/ui';
 
-export default class MusicListView extends Component {
+export default class MusicListView extends PureComponent {
   static propTypes = {
     onPress: PropTypes.func,
     song: PropTypes.object,
   };
 
-  constructor() {
-    super()
-
-    this.handlePress = this.handlePress.bind(this);
-  }
-
-  handlePress() {
+  handlePress = () => {
     const { song } = this.props;
     this.props.onPress(song);
   }

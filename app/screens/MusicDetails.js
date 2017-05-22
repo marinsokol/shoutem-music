@@ -1,5 +1,5 @@
 import React, {
-  Component,
+  PureComponent,
   PropTypes,
 } from 'react';
 
@@ -20,40 +20,72 @@ import { ext } from '../extension';
 
 import Video from 'react-native-video';
 
-export class MusicDetails extends Component {
+export class MusicDetails extends PureComponent {
   static propTypes = {
     song: PropTypes.object,
+    songs: PropTypes.array,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      playing: false,
-    }
-
-    this.playSong = this.playSong.bind(this);
+  state = {
+    song: this.props.song,
+    playing: false,
   }
 
-  playSong() {
+  playSong = () => {
     const { playing } = this.state;
     this.setState({ playing: !playing });
   }
 
+  prevSong = () => {
+    const { songs } = this.props;
+    const { song } = this.state;
+    let index = songs.findIndex(single => single.uuid === song.uuid) - 1;
+    if (index === -1) index = songs.length - 1;
+
+    this.setState({
+      song: songs[index],
+    })
+  }
+
+  nextSong = () => {
+    const { songs } = this.props;
+    const { song } = this.state;
+    let index = songs.findIndex(single => single.uuid === song.uuid) + 1;
+    if (songs.length === index) index = 0;
+
+    this.setState({
+      song: songs[index],
+    })
+  }
+
   render() {
-    const { song } = this.props;
-    const { playing } = this.state;
-    let playButton = null;
+    const { playing, song } = this.state;
+    const { songs } = this.props;
+    let playButton = null,
+      prevButton = null,
+      nextButton = null;
     if (!playing) {
-      playButton = (<Icon name="play" style={{ fontSize: 100, color: 'white' }} />);
+      playButton = (<Icon name="play" style={{ fontSize: 100 }} />);
     } else {
-      playButton = (<Icon name="pause" style={{ fontSize: 100, color: 'white' }} />);
+      playButton = (<Icon name="pause" style={{ fontSize: 100 }} />);
+    }
+    if (songs.length > 1) {
+      prevButton = (
+        <TouchableOpacity onPress={this.prevSong}>
+          <Icon name="left-arrow" style={{ fontSize: 100 }} />
+        </TouchableOpacity>
+      );
+      nextButton = (
+        <TouchableOpacity onPress={this.nextSong}>
+          <Icon name="right-arrow" style={{ fontSize: 100 }} />
+        </TouchableOpacity>
+      );
     }
 
     return (
       <Screen>
         <NavigationBar
-          title={song.name}
+          title={'MUSIC'}
         />
         <View styleName="vertical h-center">
           <Image
@@ -61,13 +93,7 @@ export class MusicDetails extends Component {
             source={{
               uri: song.albumImage
             }}
-          >
-            <Tile styleName="clear">
-              <TouchableOpacity onPress={this.playSong}>
-                {playButton}
-              </TouchableOpacity>
-            </Tile>
-          </Image>
+          />
           <Video
             source={{ uri: song.url }}
             ref="audio"
@@ -84,9 +110,18 @@ export class MusicDetails extends Component {
           <Subtitle>{song.artist}</Subtitle>
           <Text>{song.album}</Text>
         </View>
+        <View styleName="horizontal v-center h-center">
+          {prevButton}
+          <TouchableOpacity onPress={this.playSong}>
+            {playButton}
+          </TouchableOpacity>
+          {nextButton}
+        </View>
       </Screen>
     );
   }
 };
 
-export default connectStyle(ext('MusicDetails'))(MusicDetails);
+export default connectStyle(
+  ext('MusicDetails')
+)(MusicDetails);
