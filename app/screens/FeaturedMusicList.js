@@ -20,13 +20,7 @@ export class FeaturedMusicList extends MusicList {
     onPress: PropTypes.func,
   };
 
-  constructor(props, context) {
-    super(props, context);
-
-    this.renderRow = this.renderRow.bind(this);
-  }
-
-  renderRow(song, sectionId, index) {
+  renderRow = (song, sectionId, index) => {
     if (index === '0') {
       return (
         <MusicListView

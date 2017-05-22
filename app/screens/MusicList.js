@@ -23,17 +23,10 @@ export class MusicList extends CmsListScreen {
   static propTypes = {
     ...CmsListScreen.propTypes,
     navigateTo: PropTypes.func,
-  };
+  }
 
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      schema: SONG_SHEMA,
-    };
-
-    this.openDetailsScreen = this.openDetailsScreen.bind(this);
-    this.renderRow = this.renderRow.bind(this);
+  state = {
+    schema: SONG_SHEMA,
   }
 
   componentDidMount() {
@@ -42,27 +35,28 @@ export class MusicList extends CmsListScreen {
     if (shouldRefresh(songs)) {
       find(SONG_SHEMA, 'all', {
         include: 'image',
-      })
+      });
     }
   }
 
-  openDetailsScreen(song) {
-    const { navigateTo } = this.props;
+  openDetailsScreen = (song) => {
+    const { navigateTo, data } = this.props;
 
     navigateTo({
       screen: ext('MusicDetails'),
-      props: { song },
-    })
+      props: {
+        song,
+        songs: data,
+      },
+    });
   }
 
-  renderRow(song) {
-    return (
-      <MusicListView
-        song={song}
-        onPress={this.openDetailsScreen}
-      />
-    );
-  }
+  renderRow = (song) => (
+    <MusicListView
+      song={song}
+      onPress={this.openDetailsScreen}
+    />
+  )
 };
 
 export const mapStateToProps = CmsListScreen.createMapStateToProps(

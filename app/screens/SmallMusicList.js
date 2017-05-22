@@ -19,20 +19,13 @@ export class SmallMusicList extends MusicList {
     onPress: PropTypes.func,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.renderRow = this.renderRow.bind(this);
-  }
-
-  renderRow(song) {
-    return (
-      <SmallMusicListView
-        song={song}
-        onPress={this.openDetailsScreen}
-      />
-    );
-  }
-};
+  renderRow = (song) => (
+    <SmallMusicListView
+      song={song}
+      onPress={this.openDetailsScreen}
+    />
+  );
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   connectStyle(
