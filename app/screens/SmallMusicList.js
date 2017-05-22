@@ -1,18 +1,28 @@
-import React from 'react';
-
-import {
-  find,
-  getCollection
-} from '@shoutem/redux-io';
+import React, {
+  PropTypes,
+} from 'react';
 
 import { connect } from 'react-redux';
-import { navigateTo } from '@shoutem/core/navigation';
+import { connectStyle } from '@shoutem/theme';
 import { ext } from '../extension';
 
-import { MusicList } from './MusicList';
+import {
+  MusicList,
+  mapStateToProps,
+  mapDispatchToProps,
+} from './MusicList';
 import SmallMusicListView from '../components/SmallMusicListView';
 
 export class SmallMusicList extends MusicList {
+  static propTypes = {
+    ...MusicList.propTypes,
+    onPress: PropTypes.func,
+  };
+
+  constructor(props, context) {
+    super(props, context);
+    this.renderRow = this.renderRow.bind(this);
+  }
 
   renderRow(song) {
     return (
@@ -22,11 +32,11 @@ export class SmallMusicList extends MusicList {
       />
     );
   }
-}
+};
 
-export default connect(
-  (state) => ({
-    songs: getCollection(state[ext()].allSongs, state)
-  }),
-  { navigateTo, find }
-)(SmallMusicList);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  connectStyle(
+    ext('SmallMusicList'),
+    {},
+  )(SmallMusicList),
+);

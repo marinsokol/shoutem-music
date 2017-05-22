@@ -14,10 +14,13 @@ import {
   Icon,
   Tile,
 } from '@shoutem/ui';
+import { NavigationBar } from '@shoutem/ui/navigation';
+import { connectStyle } from '@shoutem/theme';
+import { ext } from '../extension';
 
 import Video from 'react-native-video';
 
-export default class MusicDetails extends Component {
+export class MusicDetails extends Component {
   static propTypes = {
     song: PropTypes.object,
   };
@@ -49,6 +52,9 @@ export default class MusicDetails extends Component {
 
     return (
       <Screen>
+        <NavigationBar
+          title={song.name}
+        />
         <View styleName="vertical h-center">
           <Image
             styleName="featured"
@@ -82,3 +88,5 @@ export default class MusicDetails extends Component {
     );
   }
 };
+
+export default connectStyle(ext('MusicDetails'))(MusicDetails);

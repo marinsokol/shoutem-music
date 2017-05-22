@@ -1,19 +1,31 @@
-import React from 'react';
-
-import {
-  find,
-  getCollection
-} from '@shoutem/redux-io';
+import React, {
+  PropTypes,
+} from 'react';
 
 import { connect } from 'react-redux';
-import { navigateTo } from '@shoutem/core/navigation';
+import { connectStyle } from '@shoutem/theme';
 import { ext } from '../extension';
 
-import { MusicList } from './MusicList';
+import {
+  MusicList,
+  mapStateToProps,
+  mapDispatchToProps,
+} from './MusicList';
 import SmallMusicListView from '../components/SmallMusicListView';
 import MusicListView from '../components/MusicListView';
 
 export class FeaturedMusicList extends MusicList {
+  static propTypes = {
+    ...MusicList.propTypes,
+    onPress: PropTypes.func,
+  };
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.renderRow = this.renderRow.bind(this);
+  }
+
   renderRow(song, sectionId, index) {
     if (index === '0') {
       return (
@@ -33,9 +45,9 @@ export class FeaturedMusicList extends MusicList {
   }
 }
 
-export default connect(
-  (state) => ({
-    songs: getCollection(state[ext()].allSongs, state)
-  }),
-  { navigateTo, find }
-)(FeaturedMusicList);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  connectStyle(
+    ext('FeaturedMusicList'),
+    {},
+  )(FeaturedMusicList),
+)
